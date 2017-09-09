@@ -64,7 +64,18 @@
             <artifactId>lombok</artifactId>
             <version>1.16.8</version>
         </dependency>
-	</dependencies>
+        <!--集成二维码-->
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>core</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>javase</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+    </dependencies>
 	<build>
 		<plugins>
 			<plugin>
@@ -73,6 +84,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
-
 </project>
