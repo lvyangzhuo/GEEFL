@@ -25,8 +25,6 @@ public class JeeflApplicationTests {
         System.out.println("hello world");
     }
 
-
-
     @Test
     public void test2(){
         int sum = junitTestController.evaluate("2+2+3");

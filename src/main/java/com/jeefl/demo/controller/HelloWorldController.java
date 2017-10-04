@@ -1,7 +1,9 @@
 package com.jeefl.demo.controller;
 
 import ch.qos.logback.core.net.SyslogOutputStream;
+import javafx.scene.input.DataFormat;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by lyz on 2017-8-6.
@@ -93,6 +97,15 @@ public class HelloWorldController {
         }
         reader.close();
         System.out.println(new String(chars,0,len));
+    }
+
+    /**
+     * 计划任务
+     */
+    //@Scheduled(fixedRate = 5000)
+    public void reportCurrentTime(){
+        SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
+        System.out.println("每五秒执行一次  "+sdf.format(new Date()));
     }
 
 }
