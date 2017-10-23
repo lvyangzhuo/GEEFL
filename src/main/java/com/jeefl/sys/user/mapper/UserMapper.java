@@ -12,7 +12,6 @@ import java.util.List;
  * Created by lyz on 2017-8-26.
  */
 @Repository
-public interface UserMapper {
+public interface UserMapper extends Mapper<UserEntity>{
 
-    List<UserEntity> selectAll();
 }

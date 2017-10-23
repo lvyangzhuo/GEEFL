@@ -19,4 +19,10 @@ public class UserService {
     public List<UserEntity> getUser(){
         return this.userMapper.selectAll();
     }
+
+    public UserEntity checkUserExits(UserEntity user){
+        UserEntity u = new UserEntity();
+        u.setName(user.getName());
+        return this.userMapper.selectOne(u);
+    }
 }
