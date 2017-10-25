@@ -5,6 +5,9 @@ import com.jeefl.sys.user.domain.UserEntity;
 import com.jeefl.sys.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -18,12 +21,12 @@ public class LoginController {
     private UserService userService;
 
     @RequestMapping("index")
-    public String index(){
+    public String index(Model model){
         return "index";
     }
 
-    @RequestMapping("login")
-    public AjaxJson login(UserEntity user){
+    @PostMapping("/login")
+    public AjaxJson login(@ModelAttribute(value = "user") UserEntity user){
         UserEntity u = userService.checkUserExits(user);
         AjaxJson j = new AjaxJson();
         if(u == null){
