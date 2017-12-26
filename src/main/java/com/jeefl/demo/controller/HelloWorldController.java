@@ -1,14 +1,19 @@
 package com.jeefl.demo.controller;
 
 import ch.qos.logback.core.net.SyslogOutputStream;
+import cz.mallat.uasparser.OnlineUpdater;
+import cz.mallat.uasparser.UASparser;
+import cz.mallat.uasparser.UserAgentInfo;
 import javafx.scene.input.DataFormat;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import tk.mybatis.mapper.entity.Example;
 
 import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
@@ -24,6 +29,16 @@ import java.util.Date;
 @EnableAutoConfiguration
 @RequestMapping("/demo/hello")
 public class HelloWorldController {
+
+    static UASparser uasParser = null;
+
+    static {
+        try {
+            uasParser = new UASparser(OnlineUpdater.getVendoredInputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @RequestMapping(value = "hello")
     public String hello(){
@@ -155,9 +170,20 @@ public class HelloWorldController {
         return g.getFontMetrics(g.getFont()).charsWidth(waterMarkContent.toCharArray(), 0, waterMarkContent.length());
     }
 
-    public static void main(String[] args) {
-        // 原图位置, 输出图片位置, 水印文字颜色, 水印文字
-        //HelloWorldController.mark("d:/postWatermark.png", "d:/afterWatermark.jpg", Color.red, "水印效果测试");
+    @RequestMapping("/userAgent")
+    public String userAgent(HttpServletRequest req) throws Exception{
+        String userAgent = req.getHeader("user-agent");
+        UserAgentInfo userAgentInfo = uasParser.parse(userAgent);
+        System.out.println("操作系统名称："+userAgentInfo.getOsFamily());//
+        System.out.println("操作系统："+userAgentInfo.getOsName());//
+        System.out.println("浏览器名称："+userAgentInfo.getUaFamily());//
+        System.out.println("浏览器版本："+userAgentInfo.getBrowserVersionInfo());//
+        System.out.println("设备类型："+userAgentInfo.getDeviceType());
+        System.out.println("浏览器:"+userAgentInfo.getUaName());
+        System.out.println("类型："+userAgentInfo.getType());
+        return "操作系统名称："+userAgentInfo.getOsFamily()+"操作系统："+userAgentInfo.getOsName()+"浏览器名称："+userAgentInfo.getUaFamily()+
+                "浏览器版本："+userAgentInfo.getBrowserVersionInfo()+"设备类型："+userAgentInfo.getDeviceType()+"浏览器:"+userAgentInfo.getUaName()+"类型："+userAgentInfo.getType();
+
     }
 
 }
