@@ -1,16 +1,11 @@
 package com.jeefl.demo.controller;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
 import cz.mallat.uasparser.OnlineUpdater;
 import cz.mallat.uasparser.UASparser;
 import cz.mallat.uasparser.UserAgentInfo;
-import javafx.scene.input.DataFormat;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import tk.mybatis.mapper.entity.Example;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
@@ -26,7 +21,6 @@ import java.util.Date;
  * Created by lyz on 2017-8-6.
  */
 @RestController
-@EnableAutoConfiguration
 @RequestMapping("/demo/hello")
 public class HelloWorldController {
 
